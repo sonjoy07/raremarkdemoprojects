@@ -1,0 +1,15 @@
+1.first of all make the environment ready and install all necessary plugins -  40min
+2.make ui view one by one page =5 hours
+	i.landing page - 2 hours
+	ii.details page	-1.5 hours
+	iii.search page - 1.5 hours
+3.user login and registration api = 1 hour
+4.user login and registration = 2 hours
+5.make an api for form submit using nodejs =2 hours
+6.make frontend view for property details form = 2 hours
+7.get all property api using nodejs = 1 hour
+8.get all property list and show in details page = 1 hour
+9.search api using nodejs = 1 hour
+10.search system emplimentation in frontend = 1 hour
+11 comment api for submit comment = 1 hours
+12 comment add option in details page = 2 hours 
