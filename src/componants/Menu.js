@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {
   Collapse,
   Navbar,
@@ -17,6 +17,7 @@ import {
   Row,
   Col, InputGroup, InputGroupAddon, InputGroupText
 } from 'reactstrap';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const Menu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,20 +61,22 @@ const Menu = (props) => {
               </div>
             </Col>
             <Col xs="6">
+              {/* <Router> */}
               <ul className="nav float-right">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">Become a Host</a>
+                  <Link className="nav-link active" aria-current="page" to="#">Become a Host</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Help</a>
+                  <Link className="nav-link" to="#">Help</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Sign Up</a>
+                  <Link className="nav-link" to="/registration">Sign Up</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Log In</a>
+                  <Link className="nav-link" to="/login">Log In</Link>
                 </li>
               </ul>
+              {/* </Router> */}
             </Col>
           </Row>
         {/* </Container> */}

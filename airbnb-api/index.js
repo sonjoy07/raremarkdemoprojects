@@ -38,25 +38,35 @@ app.post('/login', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
     if (username && password) {
-        let checkQuer = `select * from users where username = ${username}`;
+        let checkQuer = `select * from users where username = '${username}'`;
         db.simple.query(checkQuer, (err, result) => {
-            console.log('sonjoy',result)
-            if (result.length > 0) {
+            if (result.length > 0 ) {
                 let passwordHash = result[0].password;
                 if (bcrypt.compareSync(req.body.password, passwordHash)) {
-                    res.send(result[0]);
+                    console.log('sonjoy',result[0].password)
+                   return res.send({
+                        status:true,
+                        result: result[0]
+                    });
                 } else {
-                    console.log('aasdfasdfa')
-                    res.send('wrong');
+                    return res.send({
+                        status:false,
+                        result: {}
+                    });
                 }
             }else{
-                console.log('aasdfasdfadfdsf')
-                res.send('wrong');
+                return res.send({
+                    status:false,
+                    result: {}
+                });
             }
 
         })
     }else{
-        res.send(false);
+        return res.send({
+            status:false,
+            result: {}
+        });
     }
 })
 

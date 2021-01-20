@@ -22,62 +22,57 @@ import {
 // import { connect } from 'react-redux';
 
 class Registration extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            username: '',
+            password: '',
+            usertype: 1,
+        };
+    }
+    handleSubmit = (event) => {
 
-    // }
+        fetch('http://localhost:4000/registration', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        }).then(function (response) {
+            window.location.href = "/login";
+        });
 
-    // componentWillMount() {
-
-    // }
-
-    // componentDidMount() {
-
-    // }
-
-    // componentWillReceiveProps(nextProps) {
-
-    // }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-
-    // }
-
-    // componentWillUpdate(nextProps, nextState) {
-
-    // }
-
-    // componentDidUpdate(prevProps, prevState) {
-
-    // }
-
-    // componentWillUnmount() {
-
-    // }
+        event.preventDefault();
+    }
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
 
     render() {
         return (
             <div className="Details">
                 <Container>
                     <div className="login-form">
-                        <form action="/examples/actions/confirmation.php" method="post">
+                        <form onSubmit={this.handleSubmit} method="post">
                             <h2 className="text-center">Registration</h2>
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="First Name" required="required" />
+                                <input type="text" name="firstname" className="form-control" value={this.state.firstname} onChange={this.handleChange} placeholder="First Name" required="required" />
                             </div>
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Last Name" required="required" />
+                                <input type="text" className="form-control" value={this.state.lastname} name="lastname" onChange={this.handleChange} placeholder="Last Name" required="required" />
                             </div>
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Username" required="required" />
+                                <input type="text" className="form-control" value={this.state.username} name="username" onChange={this.handleChange} placeholder="Username" required="required" />
                             </div>
                             <div className="form-group">
-                                <input type="password" className="form-control" placeholder="Password" required="required" />
+                                <input type="password" className="form-control" value={this.state.password} name="password" onChange={this.handleChange} placeholder="Password" required="required" />
                             </div>
                             <div className="form-group">
-                                <select className="form-control">
-                                    <option>Owner</option>
-                                    <option>Renter</option>
+                                <select className="form-control" value={this.state.usertype} name="usertype" onChange={this.handleChange}>
+                                    <option value="1">Owner</option>
+                                    <option value="2">Renter</option>
                                 </select>
                             </div>
                             <div className="form-group">
