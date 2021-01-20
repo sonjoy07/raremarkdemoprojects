@@ -34,7 +34,7 @@
     margin-top: 20px;
 }
 .search-input button{
-  width: 100px;
+  width: 108px;
 }
 .App-logo {
   height: 40vmin;
@@ -88,7 +88,50 @@
   /* width: 10px; */
   display: block;
 }
-
+.first_image{
+  width: 70%;
+  float: left;
+  overflow: hidden;
+  height: 700px;
+}
+.first_image img{
+  height: 100%;
+}
+.rest_image{
+  width: 30%;
+  float: left;
+  overflow: hidden;
+  height: 700px;
+}
+.image-details img{
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 100%;
+}
+.rest_image_1{
+  height: 350px;
+}
+.rest_image_2{
+  height: 350px;
+}
+.Details,.Details li{
+  text-align: left;
+}
+.cart_form{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 25px;
+}
+.details-start{
+  margin-bottom: 140px;
+}
+.details-top{
+  margin-top: 40px;
+  margin-bottom: 800px;
+}
+.details-top h4 i{
+  color: #FCCB00;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

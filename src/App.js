@@ -3,6 +3,7 @@ import './App.css';
 import Menu from './componants/Menu';
 import SearchOption from './componants/SearchOption';
 import Landing from './componants/Landing';
+import Details from './componants/Details';
 import Footer from './componants/Footer';
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <div className="App">
       <Menu />
       <SearchOption />
-      <Landing />
+      {/* <Landing /> */}
+      <Details />
       <Footer />
     </div>
   );
