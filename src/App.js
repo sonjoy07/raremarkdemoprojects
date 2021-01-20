@@ -5,6 +5,7 @@ import SearchOption from './componants/SearchOption';
 import Landing from './componants/Landing';
 import Details from './componants/Details';
 import Login from './componants/Login';
+import Registration from './componants/Registration';
 import Search from './componants/Search';
 import Footer from './componants/Footer';
 
@@ -12,12 +13,13 @@ function App() {
   return (
     <div className="App">
       <Menu />
-      <SearchOption />
+      {/* <SearchOption /> */}
       {/* <Landing /> */}
       {/* <Details /> */}
-      <Search />
+      {/* <Search /> */}
       {/* <Login/> */}
-      <Footer />
+      <Registration />
+      {/* <Footer /> */}
     </div>
   );
 }
