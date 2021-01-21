@@ -91,7 +91,7 @@ class Landing extends Component {
                             <CardImg top width="100%" src={window.location.origin + '/logo192.png'} alt="Card image cap" />
                             <CardBody>
                             {console.log(res.first_name)}
-                                <CardText>{res.description}</CardText>
+                                <CardText><a href={"/details/"+res.id}>{res.description}</a></CardText>
                                 <Media>
                                     <Media left href="#">
                                         <Media object src={window.location.origin + '/logo512.png'} alt="Generic placeholder image" className="rounded-circle"/>

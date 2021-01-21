@@ -32,6 +32,24 @@ const Menu = (props) => {
     let user_id = Cookies.get('c_user');
     return user_id == null ? '' : user_id;
   }
+  
+  const logout =()=> {
+    var c_user = 'c_user';
+    document.cookie = c_user + '=; Max-Age=0'
+    var redirect_url = "/".concat('logout');
+    // let user_id = webgetCookie('c_user');
+    document.cookie = "c_user=;";
+    document.cookie = "c_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    deleteSetLocalStorage(['user_id', 'security_data'])
+    window.location.replace(redirect_url);
+
+  }
+  const deleteSetLocalStorage=(storeKey)=> {
+    for (var i = 0; i < storeKey.length; i++) {
+      localStorage.removeItem(storeKey[i]);
+    }
+
+  }
   useEffect(() => {
     if (getCurrentuserid() > 0) {
       fetch('http://localhost:4000/getUser', {
@@ -96,13 +114,19 @@ const Menu = (props) => {
               <li className="nav-item">
                 <Link className="nav-link" to="#">Help</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/search">Search</Link>
+              </li>
+              {getCurrentuserid() > 0&&<li className="nav-item">
+                <Link className="nav-link" to="#">Add Post</Link>
+              </li>}
               {getCurrentuserid() == 0 ? <li className="nav-item">
                 <Link className="nav-link" to="/registration">Sign Up</Link>
               </li> : <li className="nav-item">
                   <Link className="nav-link" to="/">{users.users.first_name}</Link>
                 </li>}
               {getCurrentuserid() > 0 ? <li className="nav-item">
-                <Link className="nav-link" to="/login">Log Out</Link>
+                <Link className="nav-link" to="/" onClick={logout}>Log Out</Link>
               </li> : <li className="nav-item">
                   <Link className="nav-link" to="/login">Log In</Link>
                 </li>}
@@ -118,7 +142,7 @@ const Menu = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/" className="active-menu">FOR YOU</NavLink>
+              <NavLink href="/" className="active-menu">FOR YOU</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">HOMES</NavLink>

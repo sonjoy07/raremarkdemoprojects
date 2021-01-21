@@ -64,7 +64,7 @@ class Login extends Component {
                     setInterval(() => {
                         window.location.href = "/";
 
-                    }, 5500);
+                    }, 500);
 
                 } else {
                     that.setError();

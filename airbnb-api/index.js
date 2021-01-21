@@ -5,10 +5,12 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const uuidv4 = require('uuid');
+const fileUpload = require("express-fileupload");
 const app = express()
 const port = 4000
 
 app.use(cors());
+// app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.disable('x-powered-by')
@@ -71,6 +73,7 @@ app.post('/registration', (req, res) => {
     }
 })
 app.post('/postAdded',  (req, res) => {
+    console.log('req.body',req)
     // const reqFiles = [];
     // const url = req.protocol + '://' + req.get('host')
     // if (req.files != undefined) {
@@ -80,13 +83,13 @@ app.post('/postAdded',  (req, res) => {
     // }
     var image = '';
     upload(req, res, function (err) {
-        console.log('req.files', err);
+        console.log('req.files', req.file);
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
         } else if (err) {
             return res.status(500).json(err)
         }
-        console.log('req.files', req.file);
+        // console.log('req.files', req.file);
         image = req.file;
 
 //    return res.status(200).send(req.file)
@@ -101,12 +104,12 @@ app.post('/postAdded',  (req, res) => {
     var bedNumber = req.body.bedNumber;
     var description = req.body.description;
     var bed = req.body.bed;
-    console.log(req.body)
+    // console.log(req.body)
     if (title && price && country) {
         let query = `INSERT into posts (title,country,price,guest,bedNumber,description,bed,city,image,type) values ('${title}','${country}','${price}','${guest}',${bedNumber},'${description}','${bed}','${city}','${image}','${type}')`;
         db.simple.query(query, (err, result) => {
             console.log('asdfasdfasd', result);
-            // if (result.affectedRows > 0) {
+            if (result.affectedRows > 0) {
                 // if (req.files != undefined) {
                 //     for (var i = 0; i < req.files.length; i++) {
                 //         let query = `INSERT into post_images (post_id,images_name) values ('${result.insertId}','${req.files[i].photos}'`;
@@ -116,14 +119,14 @@ app.post('/postAdded',  (req, res) => {
                 // }
                 return res.send({
                     status: true,
-                    result: result[0]
+                    result: result.insertId
                 });
-            // } else {
-            //     return res.send({
-            //         status: false,
-            //         result: {}
-            //     });
-            // }
+            } else {
+                return res.send({
+                    status: false,
+                    result: {}
+                });
+            }
 
         })
     } else {

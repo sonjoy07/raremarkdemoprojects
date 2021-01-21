@@ -36,7 +36,7 @@ class Search extends Component {
       }).then(function (response) {
         response.json().then(res => {
             that.setState({
-                property:res
+                property:res.data
             })
 
         })
@@ -67,7 +67,7 @@ class Search extends Component {
         return (
             <div className="search">
                 <Container>
-                    {this.state.property.map(res=>{
+                    {this.state.property.length > 0 ?this.state.property.map(res=>{
                     return(
                         <Fragment>
                     <div className="card">
@@ -87,7 +87,7 @@ class Search extends Component {
                             </div>
                         </div>
                     </div></Fragment>)
-                })}
+                }):''}
                      
                 </Container>
                 <Pagination size="sm" aria-label="Page navigation example">
