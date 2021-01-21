@@ -18,21 +18,42 @@ import {
     Col, InputGroup, InputGroupAddon, InputGroupText, Card, Button, CardImg, CardTitle, CardText, CardGroup,
     CardSubtitle, CardBody, Media
 } from 'reactstrap';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { setPostInfo } from './../actions/user'
 
 class Landing extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            property: []
+        }
 
-    // }
+    }
 
     // componentWillMount() {
 
     // }
 
-    // componentDidMount() {
+    componentDidMount() {
+        var that = this;
+        fetch('http://localhost:4000/getAllProperty', {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        // body: JSON.stringify({ 'user_id': getCurrentuserid() })
+      }).then(function (response) {
+        response.json().then(res => {
+            that.setState({
+                property:res.data
+            })
 
-    // }
+        //   if (res.status == true) {
+        //     // dispatch(setUserInfo(res.result))
+        //   }
+        })
+      })
+    }
 
     // componentWillReceiveProps(nextProps) {
 
@@ -55,60 +76,36 @@ class Landing extends Component {
     // }
 
     render() {
+        var {property }= this.state;
+        if(property.length>0){
+    }
         return (
             <div className="landing">
                 <Container>
                     <h3>What guests are saying about homes in the United Kingdom</h3>
                     <CardGroup>
-                        <Card>
+                        {/* {property[0].title} */}
+                        {property.length> 0 ?
+                         property.map(res=>{
+                            return(<Card>
                             <CardImg top width="100%" src={window.location.origin + '/logo192.png'} alt="Card image cap" />
                             <CardBody>
-                                <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
+                            {console.log(res.first_name)}
+                                <CardText>{res.description}</CardText>
                                 <Media>
                                     <Media left href="#">
                                         <Media object src={window.location.origin + '/logo512.png'} alt="Generic placeholder image" className="rounded-circle"/>
                                     </Media>
                                     <Media body>
                                         <Media heading>
-                                            Nicky
+                                        {res.first_name}
                                 </Media>
                                     </Media>
                                 </Media>
                             </CardBody>
-                        </Card>
-                        <Card>
-                            <CardImg top width="100%" src={window.location.origin + '/logo192.png'} alt="Card image cap" />
-                            <CardBody>
-                                <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                                <Media>
-                                    <Media left href="#">
-                                        <Media object src={window.location.origin + '/logo512.png'} alt="Generic placeholder image" className="rounded-circle"/>
-                                    </Media>
-                                    <Media body>
-                                        <Media heading>
-                                            Nicky
-                                </Media>
-                                    </Media>
-                                </Media>
-                            </CardBody>
-                        </Card>
-                        <Card>
-                            <CardImg top width="100%" src={window.location.origin + '/logo192.png'} alt="Card image cap" />
-                            <CardBody>
-                                <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                                <Media>
-                                    <Media left href="#">
-                                        <Media object src={window.location.origin + '/logo512.png'} alt="Generic placeholder image" className="rounded-circle"/>
-                                    </Media>
-                                    <Media body>
-                                        <Media heading>
-                                            Nicky
-                                </Media>
-                                    </Media>
-                                </Media>
-                            </CardBody>
-                        </Card>
-                    </CardGroup>
+                        </Card>)
+                        }):''}
+                        </CardGroup>
                     <h3>Just Booked</h3>
                     <CardGroup>
                         <Card>
@@ -187,19 +184,19 @@ class Landing extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {
+function mapStateToProps(state) {
+    return {
 
-//     };
-// }
+    };
+}
 
-// function mapDispatchToProps(dispatch) {
-//     return {
+function mapDispatchToProps(dispatch) {
+    return {
+        setPostInfo: (requestData) => dispatch(setPostInfo(requestData)),
+    };
+}
 
-//     };
-// }
-
-// export default connect(
-//     mapStateToProps,
-// )(Landing);
-export default Landing;
+export default connect(
+    mapStateToProps,
+)(Landing);
+// export default Landing;

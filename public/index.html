@@ -45,5 +45,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+<script>
+  function getCurrentuserid() {
+			let user_id = webgetCookie('c_user');
+			return user_id == null ? '' : user_id;
+		}
+</script>
 
 </html>

@@ -9,15 +9,21 @@ import Login from './componants/Login';
 import Registration from './componants/Registration';
 import Search from './componants/Search';
 import Footer from './componants/Footer';
+import Post from './componants/Post';
 import configureStore from './store/configureStore';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from "react-router-dom";
+import Cookies from 'js-cookie';
 var pathname = window.document.location.pathname;
 const store = configureStore();
+const getCurrentuserid = () => {
+  let user_id = Cookies.get('c_user');
+  return user_id == null ? '' : user_id;
+}
 // store.dispatch(setPathname(pathname));
 
 function App() {
@@ -42,12 +48,17 @@ function App() {
               <Search />
               <Footer />
             </Route>
-            <Route path="/login">
+            <Route path="/post">
+              <Post />
+              <Footer />
+            </Route>
+            {getCurrentuserid() == 0 ?<Route path="/login">
               <Login />
-            </Route>
-            <Route path="/registration">
+            </Route>:<Redirect to="/"></Redirect>}
+            {getCurrentuserid() == 0 ? <Route path="/registration">
               <Registration />
-            </Route>
+            </Route>:<Redirect to="/"></Redirect>}
+            
           </Switch>
         </Router>
       </Provider>

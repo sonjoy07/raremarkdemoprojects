@@ -1,5 +1,6 @@
 const adduserReducer = {
-    users:[]
+    users:[],
+    posts:[]
 };
 
 export default (state = adduserReducer,action ) =>{
@@ -9,6 +10,11 @@ export default (state = adduserReducer,action ) =>{
             return {
                 ...state,
                 users:action.users
+            }
+        case 'POSTS':
+            return {
+                ...state,
+                posts:action.posts
             }
        
 

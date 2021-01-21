@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
     Collapse,
     Navbar,
@@ -13,18 +13,35 @@ import {
 // import { connect } from 'react-redux';
 
 class Search extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            property: []
+        }
 
-    // }
+    }
 
     // componentWillMount() {
 
     // }
 
-    // componentDidMount() {
+    componentDidMount() {
+        var that = this;
+        fetch('http://localhost:4000/getAllProperty', {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        // body: JSON.stringify({ 'user_id': getCurrentuserid() })
+      }).then(function (response) {
+        response.json().then(res => {
+            that.setState({
+                property:res
+            })
 
-    // }
+        })
+      })
+    }
 
     // componentWillReceiveProps(nextProps) {
 
@@ -50,6 +67,9 @@ class Search extends Component {
         return (
             <div className="search">
                 <Container>
+                    {this.state.property.map(res=>{
+                    return(
+                        <Fragment>
                     <div className="card">
                         <div className="row no-gutters">
                             <div className="col-auto">
@@ -57,85 +77,18 @@ class Search extends Component {
                             </div>
                             <div className="col">
                                 <div className="card-block px-2">
-                                    <p>Private Room <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
-                                    <h4 className="card-title">Private Room - 1Double & 1 single Bed-central London</h4>
-                                    <p className="card-text">3 Guests . 1 bedroom . 2 beds . 1 shared bathroom</p>
+                                    <p>{res.title} <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
+                                    <h4 className="card-title">{res.title} - 1Double & 1 single Bed-central London</h4>
+                                    <p className="card-text">{res.guest} Guests . {res.bed} bedroom . {res.bedNumber} beds . 1 shared bathroom</p>
                                     <p className="card-text">Wifi . Kitchen . Heating . Washing machine</p>
-                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>38/night</h4>
+                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>{res.price}/night</h4>
                                     {/* <p  className="float-right"><i className="fas fa-dollar-sign"></i>38/night</p> */}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="card">
-                        <div className="row no-gutters">
-                            <div className="col-auto">
-                                <img src="//placehold.it/400" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col">
-                                <div className="card-block px-2">
-                                    <p>Private Room <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
-                                    <h4 className="card-title">Private Room - 1Double & 1 single Bed-central London</h4>
-                                    <p className="card-text">3 Guests . 1 bedroom . 2 beds . 1 shared bathroom</p>
-                                    <p className="card-text">Wifi . Kitchen . Heating . Washing machine</p>
-                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>38/night</h4>
-                                    {/* <p  className="float-right"><i className="fas fa-dollar-sign"></i>38/night</p> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="row no-gutters">
-                            <div className="col-auto">
-                                <img src="//placehold.it/400" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col">
-                                <div className="card-block px-2">
-                                    <p>Private Room <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
-                                    <h4 className="card-title">Private Room - 1Double & 1 single Bed-central London</h4>
-                                    <p className="card-text">3 Guests . 1 bedroom . 2 beds . 1 shared bathroom</p>
-                                    <p className="card-text">Wifi . Kitchen . Heating . Washing machine</p>
-                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>38/night</h4>
-                                    {/* <p  className="float-right"><i className="fas fa-dollar-sign"></i>38/night</p> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="row no-gutters">
-                            <div className="col-auto">
-                                <img src="//placehold.it/400" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col">
-                                <div className="card-block px-2">
-                                    <p>Private Room <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
-                                    <h4 className="card-title">Private Room - 1Double & 1 single Bed-central London</h4>
-                                    <p className="card-text">3 Guests . 1 bedroom . 2 beds . 1 shared bathroom</p>
-                                    <p className="card-text">Wifi . Kitchen . Heating . Washing machine</p>
-                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>38/night</h4>
-                                    {/* <p  className="float-right"><i className="fas fa-dollar-sign"></i>38/night</p> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="row no-gutters">
-                            <div className="col-auto">
-                                <img src="//placehold.it/400" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col">
-                                <div className="card-block px-2">
-                                    <p>Private Room <Badge className="float-right"><i className="fas fa-star"></i> 4.61(207)</Badge></p>
-                                    <h4 className="card-title">Private Room - 1Double & 1 single Bed-central London</h4>
-                                    <p className="card-text">3 Guests . 1 bedroom . 2 beds . 1 shared bathroom</p>
-                                    <p className="card-text">Wifi . Kitchen . Heating . Washing machine</p>
-                                    <h4 className="float-right"><i className="fas fa-dollar-sign"></i>38/night</h4>
-                                    {/* <p  className="float-right"><i className="fas fa-dollar-sign"></i>38/night</p> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    </div></Fragment>)
+                })}
+                     
                 </Container>
                 <Pagination size="sm" aria-label="Page navigation example">
                         <PaginationItem>

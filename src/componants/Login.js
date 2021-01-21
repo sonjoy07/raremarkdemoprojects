@@ -20,7 +20,21 @@ import {
     CardSubtitle, CardBody, Media
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import {setUserInfo} from './../actions/user'
+import { setUserInfo } from './../actions/user'
+import Cookies from 'js-cookie';
+
+export const setCookie = (cname,cvalue,exdays,onlyTime = false) => {
+    var d = new Date();
+    if(onlyTime) {
+        d.setTime(d.getTime() + (exdays*60*60*1000));
+    }
+    else {
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    }
+    
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
 class Login extends Component {
     constructor(props) {
@@ -28,38 +42,10 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            error:''
+            error: ''
         };
 
     }
-
-    // componentWillMount() {
-
-    // }
-
-    // componentDidMount() {
-
-    // }
-
-    // componentWillReceiveProps(nextProps) {
-
-    // }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-
-    // }
-
-    // componentWillUpdate(nextProps, nextState) {
-
-    // }
-
-    // componentDidUpdate(prevProps, prevState) {
-
-    // }
-
-    // componentWillUnmount() {
-
-    // }
     handleSubmit = (event) => {
         let that = this;
         fetch('http://localhost:4000/login', {
@@ -69,16 +55,18 @@ class Login extends Component {
             },
             body: JSON.stringify(this.state)
         }).then(function (response) {
-             response.json().then(res=>{
+            response.json().then(res => {
                 console.log(res.status);
-                if(res.status == true){
+                if (res.status == true) {
                     that.props.setUserInfo(res.result)
+
+                    setCookie('c_user', res.result.id, 30);
                     setInterval(() => {
                         window.location.href = "/";
-                        
+
                     }, 5500);
-                    
-                }else{
+
+                } else {
                     that.setError();
                 }
 
@@ -88,13 +76,13 @@ class Login extends Component {
 
         event.preventDefault();
     }
-    setError = ()=>{
-        this.setState({error:'Username or password is wrong'})
-        setInterval(()=>{
-            this.setState({error:''})
-        },3000)
+    setError = () => {
+        this.setState({ error: 'Username or password is wrong' })
+        setInterval(() => {
+            this.setState({ error: '' })
+        }, 3000)
     }
-    
+
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -108,7 +96,7 @@ class Login extends Component {
                             <h2 className="text-center">Log in</h2>
                             <span className="danger">{this.state.error}</span>
                             <div className="form-group">
-                                <input type="text" className="form-control" value={this.state.username} name="username" onChange={this.handleChange}placeholder="Username" required="required" />
+                                <input type="text" className="form-control" value={this.state.username} name="username" onChange={this.handleChange} placeholder="Username" required="required" />
                             </div>
                             <div className="form-group">
                                 <input type="password" className="form-control" placeholder="Password" name="password" onChange={this.handleChange} value={this.state.password} required="required" />
@@ -136,11 +124,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {        
+    return {
         setUserInfo: (requestData) => dispatch(setUserInfo(requestData)),
     };
 }
 
 export default connect(
-    mapStateToProps,mapDispatchToProps
+    mapStateToProps, mapDispatchToProps
 )(Login);
